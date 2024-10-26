@@ -1,8 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 
 const authOptions:any = {
-  secret: process.env.NEXTAUTH_SECRET,
-
   providers: [
     {
       id: "worldcoin",
