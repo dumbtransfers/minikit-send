@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 
-export const authOptions: NextAuthOptions = {
+const authOptions:any = {
   secret: process.env.NEXTAUTH_SECRET,
 
   providers: [
@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.WLD_CLIENT_SECRET,
       idToken: true,
       checks: ["state", "nonce", "pkce"],
-      profile(profile) {
+      profile(profile:any) {
         return {
           id: profile.sub,
           name: profile.sub,
@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
     },
   ],
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user }:any) {
       return true;
     },
   },
