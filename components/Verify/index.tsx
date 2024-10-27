@@ -21,7 +21,14 @@ const verifyPayload: VerifyCommandInput = {
 };
 
 const triggerVerify = () => {
-  MiniKit.commands.verify(verifyPayload);
+  if (MiniKit.isInstalled()) {
+    MiniKit.commands.verify(verifyPayload);
+  } else {
+    MiniKit.install()
+    MiniKit.commands.verify(verifyPayload);
+    console.error("MiniKit not installed");
+    
+  }
 };
 
 export const VerifyBlock = () => {
