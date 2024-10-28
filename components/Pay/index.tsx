@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import useFetchWldPrice from "@/hooks/useFetchWldPrice";
 import { useRouter } from "next/navigation";
 // ...
-const sendPayment = async (usdAmount:any, wldAmount:number) => {
+const sendPayment = async (usdAmount:number, wldAmount:number) => {
   const res = await fetch("/api/initiate-payment", {
     method: "POST",
   });
@@ -19,8 +19,10 @@ const sendPayment = async (usdAmount:any, wldAmount:number) => {
   const { id } = await res.json();
   const usdceAmount = Math.round(tokenToDecimals(usdAmount, Tokens.USDCE));
   const wldAmountInSmallestUnit = Math.round(tokenToDecimals(wldAmount, Tokens.WLD));
+  console.log("Payment ID:", id);
+  console.log("USD Amount:", usdAmount);
+  console.log("WLD Amount in smallest unit:", wldAmountInSmallestUnit);
 
-  console.log(id);
   const payload: PayCommandInput = {
     reference: id,
     to: "0x52eF0e850337ecEC348C41919862dBAac42F620B", // Test address
@@ -84,7 +86,7 @@ export const PayBlock = (amount:any) => {
   }, []);
 
   return (
-    <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 transition" onClick={() => sendPayment(amount, wldAmount)}>
+    <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 transition" onClick={() => sendPayment(Number(amount), Number(wldAmount))}>
       Enviar
     </button>
   );
