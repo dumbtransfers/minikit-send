@@ -12,16 +12,30 @@ import useFetchWldPrice from "@/hooks/useFetchWldPrice";
 import { useRouter } from "next/navigation";
 // ...
 const sendPayment = async (usdAmount:number, wldAmount:number) => {
+  console.log("USD Amount before conversion:", usdAmount);
+  console.log("WLD Amount before conversion:", wldAmount);
+
   const res = await fetch("/api/initiate-payment", {
     method: "POST",
   });
 
   const { id } = await res.json();
-  const usdceAmount = Math.round(tokenToDecimals(usdAmount, Tokens.USDCE));
-  const wldAmountInSmallestUnit = Math.round(tokenToDecimals(wldAmount, Tokens.WLD));
-  console.log("Payment ID:", id);
-  console.log("USD Amount:", usdAmount);
-  console.log("WLD Amount in smallest unit:", wldAmountInSmallestUnit);
+
+  if (isNaN(usdAmount) || usdAmount < 0) {
+    console.error("Invalid USD amount:", usdAmount);
+    return; // Early exit on invalid amount
+}
+
+if (isNaN(wldAmount) || wldAmount < 0) {
+    console.error("Invalid WLD amount:", wldAmount);
+    return; // Early exit on invalid amount
+}
+const usdceAmount = Math.round(tokenToDecimals(usdAmount, Tokens.USDCE));
+const wldAmountInSmallestUnit = Math.round(tokenToDecimals(wldAmount, Tokens.WLD));
+
+console.log("Converted USDCE Amount:", usdceAmount.toString());
+console.log("Converted WLD Amount:", wldAmountInSmallestUnit.toString());
+
 
   const payload: PayCommandInput = {
     reference: id,
