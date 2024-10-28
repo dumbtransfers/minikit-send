@@ -4,11 +4,13 @@ import Header from '@/components/Header/index';
 import { useRouter } from 'next/navigation';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { PayBlock } from '@/components/Pay/index';
+import useFetchWldPrice from "@/hooks/useFetchWldPrice";
 
 const SendScreen = () => {
   const router = useRouter();
   const [address, setAddress] = useState('');
   const [amount, setAmount] = useState<string>(''); // Keep amount as string
+  const price:any = useFetchWldPrice(); 
 
   // Transaction fee
   const transactionFee = 0.5;
@@ -59,7 +61,7 @@ const SendScreen = () => {
         </div>
 
         {/* Pass the numericAmount to PayBlock */}
-        <PayBlock amount={numericAmount} />
+        <PayBlock amount={numericAmount} price={price} />
       </div>
     </div>
   );
