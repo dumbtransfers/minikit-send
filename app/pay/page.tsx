@@ -8,7 +8,7 @@ import { PayBlock } from '@/components/Pay/index';
 const SendScreen = () => {
   const router = useRouter(); // Initialize the router
   const [address, setAddress] = useState('');
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState<any>('');
 
   // Transaction fee
   const transactionFee = 0.5;
