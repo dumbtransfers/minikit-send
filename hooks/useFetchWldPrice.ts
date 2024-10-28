@@ -15,7 +15,7 @@ const useFetchWldPrice = () => {
     };
 
     fetchPrice();
-  }, []);
+  }, [price]);
 
   return price;
 };
