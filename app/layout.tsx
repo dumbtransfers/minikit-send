@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import MiniKitProvider from "@/components/minikit-provider";
 import dynamic from "next/dynamic";
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
         <ErudaProvider>
           <MiniKitProvider>
             <body className={inter.className}>{children}</body>
+            <Analytics/>
           </MiniKitProvider>
         </ErudaProvider>
     </html>
