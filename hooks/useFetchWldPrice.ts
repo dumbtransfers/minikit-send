@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const useFetchWldPrice = () => {
-  const [price, setPrice] = useState(null);
+  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     const fetchPrice = async () => {
@@ -15,7 +15,7 @@ const useFetchWldPrice = () => {
     };
 
     fetchPrice();
-  }, [price]);
+  }, []);
 
   return price;
 };
