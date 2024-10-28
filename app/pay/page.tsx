@@ -11,6 +11,7 @@ const SendScreen = () => {
   const [address, setAddress] = useState('');
   const [amount, setAmount] = useState<string>(''); // Keep amount as string
   const price:any = useFetchWldPrice(); 
+  console.log("check the pay screen page price", price)
 
   // Transaction fee
   const transactionFee = 0.5;

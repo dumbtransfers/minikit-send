@@ -9,6 +9,7 @@ const useFetchWldPrice = () => {
         const response = await fetch("/api/wld-price");
         const data = await response.json();
         setPrice(data.price);
+        console.log("check the hook price", data.price)
       } catch (error) {
         console.error("Error fetching WLD price:", error);
       }
