@@ -44,7 +44,7 @@ const sendPayment = async (usdAmount:number, wldAmount:number) => {
   }
 };
 
-export const PayBlock = (amount:any) => {
+export const PayBlock = ({amount}:any) => {
   const router = useRouter()
   const price:any = useFetchWldPrice(); 
   const adjustedPrice = price / 1e8; // Adjust to standard decimal format
