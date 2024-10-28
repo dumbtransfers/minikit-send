@@ -17,6 +17,8 @@ const sendPayment = async (usdAmount:any, wldAmount:number) => {
   });
 
   const { id } = await res.json();
+  const usdceAmount = Math.round(tokenToDecimals(usdAmount, Tokens.USDCE));
+  const wldAmountInSmallestUnit = Math.round(tokenToDecimals(wldAmount, Tokens.WLD));
 
   console.log(id);
   const payload: PayCommandInput = {
@@ -25,11 +27,11 @@ const sendPayment = async (usdAmount:any, wldAmount:number) => {
     tokens: [
       {
         symbol: Tokens.WLD,
-        token_amount: tokenToDecimals(wldAmount, Tokens.WLD).toString(),
+        token_amount: wldAmountInSmallestUnit.toString(),
       },
       {
         symbol: Tokens.USDCE,
-        token_amount: tokenToDecimals(usdAmount, Tokens.USDCE).toString(),
+        token_amount: usdceAmount.toString(),
       },
     ],
     description: "Watch this is a test",
