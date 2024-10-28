@@ -62,7 +62,7 @@ export const PayBlock = ({amount, price}:any) => {
   const adjustedPrice = price / 1e8; // Adjust to standard decimal format
   const numericAmount = Number(amount);
 
-  const wldAmount = adjustedPrice ? (numericAmount / adjustedPrice).toFixed(6) : "0.000000"; // Check price before dividing
+  const wldAmount = adjustedPrice ? (numericAmount / adjustedPrice).toFixed(6) : 0; // Check price before dividing
 
   console.log(wldAmount, "check the wldAmount")
   console.log(Number(wldAmount), "check the Number(wldAmount")
@@ -102,7 +102,7 @@ export const PayBlock = ({amount, price}:any) => {
   }, []);
 
   return (
-    <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 transition" onClick={() => sendPayment(Number(amount), wldAmount)}>
+    <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 transition" onClick={() => sendPayment(Number(amount), Number(wldAmount))}>
       Enviar
     </button>
   );
