@@ -8,7 +8,6 @@ import {
   MiniAppPaymentPayload,
 } from "@worldcoin/minikit-js";
 import { useEffect } from "react";
-import useFetchWldPrice from "@/hooks/useFetchWldPrice";
 import { useRouter } from "next/navigation";
 // ...
 const sendPayment = async (usdAmount:number, wldAmount:number) => {
@@ -58,9 +57,8 @@ console.log("Converted WLD Amount:", wldAmountInSmallestUnit.toString());
   }
 };
 
-export const PayBlock = ({amount}:any) => {
+export const PayBlock = ({amount, price}:any) => {
   const router = useRouter()
-  const price:any = useFetchWldPrice(); 
   const adjustedPrice = price / 1e8; // Adjust to standard decimal format
   const numericAmount = Number(amount);
 
