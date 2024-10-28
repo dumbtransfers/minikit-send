@@ -62,7 +62,7 @@ export const PayBlock = ({amount, price}:any) => {
   const adjustedPrice = price / 1e8; // Adjust to standard decimal format
   const numericAmount = Number(amount);
 
-  const wldAmount:any = (numericAmount * adjustedPrice).toFixed(6); // Adjust decimal precision as needed
+  const wldAmount = adjustedPrice ? (numericAmount / adjustedPrice).toFixed(6) : "0.000000"; // Check price before dividing
 
   console.log(wldAmount, "check the wldAmount")
   console.log(Number(wldAmount), "check the Number(wldAmount")
