@@ -62,8 +62,12 @@ export const PayBlock = ({amount}:any) => {
   const router = useRouter()
   const price:any = useFetchWldPrice(); 
   const adjustedPrice = price / 1e8; // Adjust to standard decimal format
+  const numericAmount = Number(amount);
 
-  const wldAmount:any = (Number(amount) * adjustedPrice).toFixed(6); // Adjust decimal precision as needed
+  const wldAmount:any = (numericAmount * adjustedPrice).toFixed(6); // Adjust decimal precision as needed
+
+  console.log(wldAmount, "check the wldAmount")
+  console.log(Number(wldAmount), "check the Number(wldAmount")
 
   useEffect(() => {
     if (!MiniKit.isInstalled()) {
@@ -100,7 +104,7 @@ export const PayBlock = ({amount}:any) => {
   }, []);
 
   return (
-    <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 transition" onClick={() => sendPayment(Number(amount), Number(wldAmount))}>
+    <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 transition" onClick={() => sendPayment(Number(amount), wldAmount)}>
       Enviar
     </button>
   );
