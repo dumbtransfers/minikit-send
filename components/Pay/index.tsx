@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import useFetchWldPrice from "@/hooks/useFetchWldPrice";
 import { useRouter } from "next/navigation";
 // ...
-const sendPayment = async (usdAmount:any) => {
+const sendPayment = async (usdAmount:any, wldAmount:number) => {
   const res = await fetch("/api/initiate-payment", {
     method: "POST",
   });
@@ -19,11 +19,6 @@ const sendPayment = async (usdAmount:any) => {
   const { id } = await res.json();
 
   console.log(id);
-  const price:any = useFetchWldPrice(); 
-  const adjustedPrice = price / 1e8; // Adjust to standard decimal format
-
-  const wldAmount:any = (Number(usdAmount) * adjustedPrice).toFixed(6); // Adjust decimal precision as needed
-
   const payload: PayCommandInput = {
     reference: id,
     to: "0x52eF0e850337ecEC348C41919862dBAac42F620B", // Test address
@@ -47,6 +42,11 @@ const sendPayment = async (usdAmount:any) => {
 
 export const PayBlock = (amount:string) => {
   const router = useRouter()
+  const price:any = useFetchWldPrice(); 
+  const adjustedPrice = price / 1e8; // Adjust to standard decimal format
+
+  const wldAmount:any = (Number(amount) * adjustedPrice).toFixed(6); // Adjust decimal precision as needed
+
   useEffect(() => {
     if (!MiniKit.isInstalled()) {
       console.error("MiniKit is not installed");
@@ -82,7 +82,7 @@ export const PayBlock = (amount:string) => {
   }, []);
 
   return (
-    <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 transition" onClick={() => sendPayment(amount)}>
+    <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 transition" onClick={() => sendPayment(amount, wldAmount)}>
       Enviar
     </button>
   );
