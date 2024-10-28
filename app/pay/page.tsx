@@ -1,14 +1,14 @@
 'use client';
 import React, { useState } from 'react';
 import Header from '@/components/Header/index';
-import { useRouter } from 'next/navigation'; // Import useRouter for navigation
-import { AiOutlineArrowLeft } from 'react-icons/ai'; // Import left arrow icon from react-icons
+import { useRouter } from 'next/navigation';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { PayBlock } from '@/components/Pay/index';
 
 const SendScreen = () => {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
   const [address, setAddress] = useState('');
-  const [amount, setAmount] = useState<any>('');
+  const [amount, setAmount] = useState<string>(''); // Keep amount as string
 
   // Transaction fee
   const transactionFee = 0.5;
@@ -16,22 +16,20 @@ const SendScreen = () => {
   // Calculate the amount received after deducting the fee
   const amountReceived = amount ? (parseFloat(amount) - transactionFee).toFixed(2) : '0.00';
 
+  // Convert amount to number and pass it to PayBlock
+  const numericAmount = parseFloat(amount) || 0; // Default to 0 if NaN
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* <Header /> */}
-
-      {/* Container for the main content */}
       <div className="p-6 space-y-6">
-        {/* Back button */}
         <button 
-          onClick={() => router.back()} // Navigate back
+          onClick={() => router.back()}
           className="flex items-center mb-4 text-blue-600 hover:underline"
         >
-          <AiOutlineArrowLeft className="mr-2" /> {/* Left arrow icon */}
+          <AiOutlineArrowLeft className="mr-2" />
           Atras
         </button>
 
-        {/* Address input section */}
         <div>
           <h2 className="text-lg font-semibold text-gray-700 mb-2">Direccion</h2>
           <input
@@ -43,7 +41,6 @@ const SendScreen = () => {
           />
         </div>
 
-        {/* Amount input section */}
         <div>
           <h2 className="text-lg font-semibold text-gray-700 mb-2">Cantidad a enviar (USD)</h2>
           <input
@@ -55,15 +52,14 @@ const SendScreen = () => {
           />
         </div>
 
-        {/* Amount received display */}
         <div className="space-y-1">
           <h2 className="text-lg font-semibold text-gray-700 mb-2">Resumen</h2>
           <p className="text-base text-gray-600">Fee: ${transactionFee.toFixed(2)}</p>
           <p className="text-xl font-bold text-gray-800">Cantidad a recibir: ${amountReceived} USD</p>
         </div>
 
-        {/* Send button */}
-        <PayBlock amount={amount}/>
+        {/* Pass the numericAmount to PayBlock */}
+        <PayBlock amount={numericAmount} />
       </div>
     </div>
   );
