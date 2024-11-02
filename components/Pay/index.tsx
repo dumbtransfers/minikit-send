@@ -3,6 +3,7 @@ import {
   MiniKit,
   tokenToDecimals,
   Tokens,
+  Network,
   PayCommandInput,
   ResponseEvent,
   MiniAppPaymentPayload,
@@ -49,7 +50,8 @@ console.log("Converted WLD Amount:", wldAmountInSmallestUnit.toString());
         token_amount: usdceAmount.toString(),
       },
     ],
-    description: "Watch this is a test",
+    network: Network.Optimism,
+    description: "Watch this is a fucking argentinian test",
   };
 
   if (MiniKit.isInstalled()) {
